@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Daily</title>
+</head>
+<body style="margin:0; display:flex; justify-content:center; align-items:center; height:100vh;">
+    <video id="videoPlayer" width="100%" autoplay>
+        Your browser does not support HTML5 video.
+    </video>
+
+    <script>
+        const videoPlayer = document.getElementById('videoPlayer');
+        const videoSources = [
+            "video-dia.mp4",
+            "video2.mp4", // Add your second video file here
+            "video3.mp4"  // Add your third video file here, and so on
+        ];
+        let currentVideoIndex = 0;
+
+        function playNextVideo() {
+            currentVideoIndex++;
+            if (currentVideoIndex >= videoSources.length) {
+                currentVideoIndex = 0; // Loop back to the first video
+            }
+            videoPlayer.src = videoSources[currentVideoIndex];
+            videoPlayer.play();
+        }
+
+        // Set the initial video source
+        videoPlayer.src = videoSources[currentVideoIndex];
+
+        // Listen for the 'ended' event to play the next video
+        videoPlayer.addEventListener('ended', playNextVideo);
+    </script>
+</body>
+</html>

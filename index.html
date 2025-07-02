@@ -1,36 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Video Daily</title>
+  <title>Video Diario Playlist</title>
 </head>
-<body style="margin:0; display:flex; justify-content:center; align-items:center; height:100vh;">
-    <video id="videoPlayer" width="100%" autoplay>
-        Your browser does not support HTML5 video.
-    </video>
+<body style="margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:black;">
+  <video id="videoPlayer" width="100%" controls autoplay></video>
 
-    <script>
-        const videoPlayer = document.getElementById('videoPlayer');
-        const videoSources = [
-            "video-dia.mp4",
-            "video2.mp4", // Add your second video file here
-            "video3.mp4"  // Add your third video file here, and so on
-        ];
-        let currentVideoIndex = 0;
+  <script>
+    const videos = [
+      "video1.mp4", // Puedes usar rutas locales si los tienes en tu repo
+      "video2.mp4", // o enlaces externos como: "https://vimeo.com/tu_video"
+      "video3.mp4"
+    ];
 
-        function playNextVideo() {
-            currentVideoIndex++;
-            if (currentVideoIndex >= videoSources.length) {
-                currentVideoIndex = 0; // Loop back to the first video
-            }
-            videoPlayer.src = videoSources[currentVideoIndex];
-            videoPlayer.play();
-        }
+    let currentVideo = 0;
+    const videoPlayer = document.getElementById('videoPlayer');
 
-        // Set the initial video source
-        videoPlayer.src = videoSources[currentVideoIndex];
+    function playNextVideo() {
+      videoPlayer.src = videos[currentVideo];
+      videoPlayer.play();
+    }
 
-        // Listen for the 'ended' event to play the next video
-        videoPlayer.addEventListener('ended', playNextVideo);
-    </script>
+    videoPlayer.addEventListener('ended', () => {
+      currentVideo = (currentVideo + 1) % videos.length;
+      playNextVideo();
+    });
+
+    // Inicializar
+    playNextVideo();
+  </script>
 </body>
 </html>
